@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use Carbon\Carbon;
 class SourceState{
 	
 	private $stageId;
@@ -64,5 +65,27 @@ class SourceState{
 		
 		return $json;
 		
+	}
+	
+	public function saveNewData($data){
+	    $carbon = Carbon::now();
+	    $table = 'D'.$carbon->year.
+    	    '_'.$carbon->month.
+    	    '_'.$carbon->day.
+    	    '_'.$this->sourceId;
+	    
+	    $source = new Source();
+	    $source->database = 'SDMDYdata_'.$this->stageId;
+	    $source->table = $table;
+	    $source->stageId = $this->stageId;
+	    $source->sourceId = $this->sourceId;
+	    $source->savetime = $carbon->toDateTimeString();
+	    $source->vol1 = $data['vol1'];
+	    $source->volz1 = $data['volz1'];
+	    $source->cur1 = $data['cur1'];
+	    $source->vol2 = $data['vol2'];
+	    $source->volz2 = $data['volz2'];
+	    $source->cur2 = $data['cur2'];
+	    $source->save();
 	}
 }

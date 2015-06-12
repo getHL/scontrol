@@ -20,3 +20,4 @@ Route::get('/test1', 'test@test1');
 Route::get('/testInsert', 'test@testInsert');
 Route::get('/newest', 'SourceController@newest');
 Route::get('/dataOfDay', 'SourceController@dataOfDay');
+Route::get('/push', 'SourceController@pushData');
